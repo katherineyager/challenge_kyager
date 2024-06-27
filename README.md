@@ -1,66 +1,98 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+## FOOD TRUCK PROJECT
+This project is a Laravel application designed to manage and search for food truck locations in San Francisco. It reads data from a CSV file, stores it in a database, and displays the information on a web page. Users can search for specific locations by the applicant's name and view details and a map of the location.
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+This project uses Larvel latest version(11), built-in MVC architecture.
 
-## About Laravel
+This project use Laravel's initial structure provides a well-organized foundation for web application development. It includes key directories like app/ for application logic, public/ as the web root, routes/ for defining application routes, and resources/ for views and assets. Important files include .env for environment configurations and artisan for command-line tasks.
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Project Structure
+/challenge_kyager  
+|-- /app  
+|   |-- /Http  
+|       |-- /Controllers  
+|           |-- LocationController.php  
+|   |-- /Models  
+|       |-- Location.php  
+|   |-- /Services  
+|       |-- CsvImportService.php  
+|-- /config  
+|   |-- services.php  
+|-- /database  
+|   |-- /migrations  
+|       |-- 2024_06_18_020833_create_locations_table.php  
+|-- /public  
+|   |-- /css  
+|       |-- styles.css  
+|-- /resources  
+|   |-- /views  
+|       |-- /location  
+|           |-- index.blade.php  
+|-- /routes  
+|   |-- web.php  
+|-- .env.example  
+|-- README.md  
+|-- DOCUMENTATION.md  
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Project Structure Description  
+Routes: Defines routes for the application, including search.  
+Controllers: LocationController handles the main logic for displaying the main page, importing data, and searching locations.  
+Services: CsvImportService handles CSV import functionality into the database.  
+Models: Location represents the data model, defines the Location model and specifies the fillable fields.  
+Views: index.blade.php for the main interface. Defines the main user interface for searching and displaying location data.  
+Migrations: Defines the locations table structure.  
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+## Instructions
+Step 1: Clone the Repository  
+git clone https://github.com/katherineyager/challenge_kyager.git  
+cd challenge_kyager (repo)  
 
-## Learning Laravel
+Step 2: Configure Environment Variables (Environment Configuration)  
+Rename the file .env.example to .env  
+mv .env.example .env  
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Step 3: Build and Start the Containers  
+docker-compose up -d --build  
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+Step 4: Install Dependencies  
+docker-compose exec app composer install  
+docker-compose exec app npm install  
+docker-compose exec app npm run dev  
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+Step 5: Run Migrations  
+docker-compose exec app php artisan migrate  
 
-## Laravel Sponsors
+Step 6: Access the Application  
+Open your web browser and navigate to http://localhost:8000  
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+## Usage  
+On the homepage, enter the name of the food truck or any related keyword in the search box.  
+Click the "Search" button to display the food truck's location on the map and details in the table.  
 
-### Premium Partners
+## Deployment  
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+Step 1: Prepare for Deployment  
+Ensure that your environment variables are correctly set up on the production server.  
 
-## Contributing
+Step 2: Build Assets  
+Run the following command to build the frontend assets for production: npm run prod  
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+Step 3: Migrate the Database  
+Run the database migrations on the production server: php artisan migrate --force  
 
-## Code of Conduct
+Step 4: Serve the Application  
+Use a web server like Apache to serve the application. Ensure that the document root points to the public directory of the Laravel application.  
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+## Future Improvements  
+Error Handling: Improve error handling and user feedback for better UX.   
 
-## Security Vulnerabilities
+Automated Tests: Add more comprehensive automated tests for both unit and integration testing.  
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+Pagination: Implement pagination for displaying a large number of food trucks.  
 
-## License
+Search Optimization: Improve the search functionality to handle more complex queries and filters.  
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+Security: Implement additional security measures, such as rate limiting and input validation.  
+
+Unit Tests: Create unit tests to ensure the functionality of the CsvImportService and LocationController.  
+
+Integration Tests: Create integration tests to ensure the end-to-end functionality of the application.  
