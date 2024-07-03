@@ -18,7 +18,10 @@ Route::middleware('auth')->group(function () {
     Route::delete('/profile', [ProfileController::class, 'destroy'])->name('profile.destroy');
 });
 //Location Routes
-Route::get('/', [LocationController::class, 'index'])->name('location.index');
+Route::get('/', function () {
+    return redirect('/search');
+});
+
 Route::get('/search', [LocationController::class, 'search'])->name('location.search');
 
 require __DIR__.'/auth.php';

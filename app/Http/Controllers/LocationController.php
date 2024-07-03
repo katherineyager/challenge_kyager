@@ -14,13 +14,6 @@ class LocationController extends Controller
     {
         $this->csvImportService = $csvImportService;
     }
-    
-    public function index()
-    {
-        $locations = Location::all();
-        $googleMapsApiKey = config('services.google_maps.api_key');
-        return view('location.index', compact('locations','googleMapsApiKey'));
-    }
 
     public function import()
     {
@@ -29,14 +22,17 @@ class LocationController extends Controller
 
     public function search(Request $request)
     {
-        $locations = Location::all();
-        if ($locations->isEmpty()){
+        
+        $locationsCsv = Location::all();
+        if ($locationsCsv->isEmpty()){
             $this->csvImportService->import();
         }
         
         $query = $request->input('query');
-        $location = Location::where('applicant', 'like', '%' . $query . '%')->first();
-        $googleMapsApiKey = config('services.google_maps.api_key');
+        $location  = Location::where('applicant', 'like', '%' . $query . '%')->first();
+        $locations = Location::where('applicant', 'like', '%' . $query . '%')->paginate(5);
+
+        $googleMapsApiKey = config('app.google_maps_api_key');
 
         return view('location.index', compact('location', 'locations','googleMapsApiKey'));
     }
